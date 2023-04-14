@@ -16,8 +16,10 @@ public class PlayerInfo {
 		Label name = new Label();
 		name.setText(player.getBuild().toString());
 		playerInfo.getChildren().add(name);
-		Label Inventory = new Label(player.getBuild().getInventory().toString());
-		playerInfo.getChildren().add(Inventory);
+		Label inventory = new Label(player.getBuild().getInventory().toString());
+		playerInfo.getChildren().add(inventory);
+		Label equipedGear = new Label(player.getBuild().getInventory().getEquipedGear());
+		playerInfo.getChildren().add(equipedGear);
 	}
 	
 	public VBox getPlayerInfo() {
