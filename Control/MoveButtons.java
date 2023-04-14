@@ -2,6 +2,9 @@ package Control;
 
 
 import Entity.Entity;
+import Entity.EntityEnum;
+import World.WorldLevel;
+import World.WorldTile;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -10,9 +13,11 @@ import javafx.scene.layout.VBox;
 public class MoveButtons {
 	private BorderPane root;
 	private Entity player;
+	private WorldLevel world;
 	
-	public MoveButtons(Entity player) {
+	public MoveButtons(Entity player, WorldLevel world) {
 		this.player = player;
+		this.world = world;
 		root = new BorderPane();
 		VBox upPane = new VBox();
 		Button upButton = new Button(" UP ");
@@ -23,6 +28,8 @@ public class MoveButtons {
 				player.getBuild().getForm().setTranslateY(player.getBuild().getForm().getTranslateY()-20);
 				player.setY(player.getY()-1);
 				System.out.println("up " + player.getY());
+				interactionCheck();
+				
 			}
 		});
 		upPane.getChildren().add(upButton);
@@ -38,6 +45,8 @@ public class MoveButtons {
 				player.getBuild().getForm().setTranslateY(player.getBuild().getForm().getTranslateY()+20);
 				player.setY(player.getY()+1);
 				System.out.println("down " + player.getY());
+				interactionCheck();
+				
 			}
 		});
 		downPane.getChildren().add(downButton);
@@ -53,6 +62,8 @@ public class MoveButtons {
 				player.getBuild().getForm().setTranslateX(player.getBuild().getForm().getTranslateX()-20);
 				player.setX(player.getX()-1);
 				System.out.println("left "  + player.getX());
+				interactionCheck();
+				
 			}
 		});
 		leftPane.getChildren().add(leftButton);
@@ -68,6 +79,7 @@ public class MoveButtons {
 				player.getBuild().getForm().setTranslateX(player.getBuild().getForm().getTranslateX()+20);
 				player.setX(player.getX()+1);
 				System.out.println("right " + player.getX());
+				interactionCheck();
 			}
 		});
 		rightPane.getChildren().add(rightButton);
@@ -80,6 +92,15 @@ public class MoveButtons {
 		centerPane.setAlignment(Pos.CENTER);
 		root.setCenter(centerPane);
 		
+	}
+	public void interactionCheck() {
+		WorldTile tile = world.getWorldTile(player.getX(), player.getY());
+		for(Entity entity:tile.getAllEntities()) {
+			if (entity.getEntityType().equals(EntityEnum.ENEMY)) {
+				System.out.println("Enemy found");
+				
+			}
+		}
 	}
 	public BorderPane getMoveButtons() {
 		return root;

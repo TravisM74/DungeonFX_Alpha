@@ -5,11 +5,13 @@ import Display.PlayerInfo;
 import Entity.Entity;
 import Entity.EntityEnum;
 import Visuals.Visuals;
+import World.WorldLevel;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -17,16 +19,18 @@ public class Main extends Application {
 	private MoveButtons moveButtons;
 	private PlayerInfo playerInfo;
 	private Visuals visual;
-	Entity player;
+	private WorldLevel world;
+	private Entity player;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			this.player = new Entity(EntityEnum.PLAYER);
+			world = new WorldLevel();
 			
 			playerInfo = new PlayerInfo(this.player);
 			BorderPane root = new BorderPane();
-			moveButtons = new MoveButtons(this.player);
+			moveButtons = new MoveButtons(this.player, this.world);
 			VBox playerControls = new VBox();
 			playerControls.getChildren().add(moveButtons.getMoveButtons());
 			root.setRight(playerControls);
@@ -37,6 +41,7 @@ public class Main extends Application {
 			visual = new Visuals(centerDisplay);
 			visual.addVusualForm(player.getBuild().getForm());
 			
+			createOrcEntity();
 			
 			root.setCenter(centerDisplay);
 			Scene scene = new Scene(root,1060,840);
@@ -51,4 +56,23 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	public void createOrcEntity() {
+		 Entity orcEnemy = new Entity(EntityEnum.ENEMY);
+		 orcEnemy.getBuild().setName("Orc");
+		 //set his xy
+		 orcEnemy.setX(2);
+		 orcEnemy.setY(2);
+		 //load him onto the corresponding tile
+		 world.getWorldTile(2, 2).addEntity(orcEnemy);
+		 //create hisForm
+		 orcEnemy.getBuild().setHumanoidForm(Color.RED,Color.GREEN,Color.RED,Color.BROWN,Color.BROWN, Color.GREEN);
+		 //set it to the Entity
+		 orcEnemy.getBuild().setForm();
+		 //Calculate its relative screen location
+		 orcEnemy.getBuild().getForm().setTranslateX(orcEnemy.getX()*20);
+		 orcEnemy.getBuild().getForm().setTranslateY(orcEnemy.getY()*20);
+		 //add entity's Visual to the Pane
+		 visual.addVusualForm(orcEnemy.getBuild().getForm());
+	}
 }
+

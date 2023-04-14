@@ -145,7 +145,7 @@ public class Inventory {
 		return "Gold \t:" + this.gold +"\n"+
 				"Silver \t:" +this.silver +"\n"+
 				"Copper \t:" + this.copper +"\n"+
-				" \n Items (" +backpack.size() +")"+" \n"+ listBackPackItems();
+				" \n Items (" +backpack.size() +")"+" \n"+ listBackPackItems()+"\n";
 				
 				
 	}

@@ -14,15 +14,15 @@ public class Build {
 	private Inventory inventory;
 
 	public Build() {
-		this.name = "Bob";
+		this.name = "";
 		this.level = 1;
 		this.hitPoints = 10;
 		this.inventory = new Inventory();
 		this.hForm = new HumanoidForm();
 			
 	}
-	public HumanoidForm getHumanoidForm() {
-		return hForm;
+	public void setHumanoidForm(Color hair,Color skin,Color eye,Color top,Color pants, Color shoe) {
+		this.hForm = new HumanoidForm(hair, skin, eye, top, pants,  shoe);
 	}
 	public void setForm() {
 		this.form =hForm.getBody();
@@ -40,6 +40,9 @@ public class Build {
 	
 	public String toString() {
 		return this.name + "\t " + "level :" + level ;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

@@ -11,8 +11,9 @@ public class WorldTile {
 	private ArrayList<Entity> entity;
 	private Group form;
 	public WorldTile() {
+		form = new Group();
 		this.entity = new ArrayList<>();
-		Rectangle tileForm = new Rectangle(0,0,10,10);
+		Rectangle tileForm = new Rectangle(0,0,20,20);
 		tileForm.setFill(Color.DARKGRAY);
 		this.form.getChildren().add(tileForm);
 	
