@@ -16,12 +16,15 @@ public class Entity {
 	private int x;
 	private int y;
 	private Build build;
+	private Item item;
 	
 	
 	public Entity(EntityEnum entity) {
 		this.x = 0;
 		this.entity = entity;
 		switch(entity) {
+		case LOOTABLE:
+			break;
 		case ENEMY:
 			this.desciption = " a hostile ";
 			this.build = new Build();
@@ -45,10 +48,19 @@ public class Entity {
 			this.build.getInventory().putItemInBackPack(new Item (" short sword ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25));
 			System.out.println("number of things inm backpack after creation " +this.build.getInventory().getBackPack().size());
 			break;
+			
 		
 		}
 	}
-		
+	public void setItem(Item item) {
+		this.item = item;
+	}
+	public Item getItem() {
+		if (this.item.equals(null)) {
+			return new Item("a.nothing.ERROR",ItemTypeEnum.EMPTY,UsedEnum.POUCH, QualityEnum.COMMON,0,0,0);
+		}
+		return this.item;
+	}
 	public String toString() {
 		return this.desciption;
 	}

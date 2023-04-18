@@ -1,5 +1,6 @@
 package application;
 
+import Control.InteractionButtons;
 import Control.MoveButtons;
 import Display.PlayerInfo;
 import Entity.Entity;
@@ -27,24 +28,26 @@ public class Main extends Application {
 		try {
 			this.player = new Entity(EntityEnum.PLAYER);
 			world = new WorldLevel();
-			
-			playerInfo = new PlayerInfo(this.player);
-			BorderPane root = new BorderPane();
-			moveButtons = new MoveButtons(this.player, this.world);
-			VBox playerControls = new VBox();
-			playerControls.getChildren().add(moveButtons.getMoveButtons());
-			root.setRight(playerControls);
-			VBox playerInformation = new VBox();
-			playerInformation.getChildren().add(playerInfo.getPlayerInfo());
-			root.setLeft(playerInformation);
 			Pane centerDisplay = new Pane();
 			visual = new Visuals(centerDisplay);
-			visual.addVusualForm(player.getBuild().getForm());
 			
+			BorderPane root = new BorderPane();
+			Scene scene = new Scene(root,1060,840);
+
+			VBox playerControls = new VBox();
+			InteractionButtons interactionButtons = new InteractionButtons(this.player, this.world,primaryStage, scene);
+			playerControls.getChildren().add(interactionButtons.getButtonContainer());
+			root.setRight(playerControls);
+			
+			VBox playerInformation = new VBox();
+			playerInfo = new PlayerInfo(this.player);
+			playerInformation.getChildren().add(playerInfo.getPlayerInfo());
+			root.setLeft(playerInformation);
+			
+			visual.addVusualForm(player.getBuild().getForm());
 			createOrcEntity();
 			
 			root.setCenter(centerDisplay);
-			Scene scene = new Scene(root,1060,840);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("The Grand Adventure");
 			primaryStage.show();
