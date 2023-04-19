@@ -1,6 +1,7 @@
 package Entity;
 
 
+import Classes.CharacterClassEnum;
 import Items.Item;
 import Items.ItemTypeEnum;
 import Items.QualityEnum;
@@ -45,6 +46,7 @@ public class Entity {
 			this.desciption = "...";
 			this.build = new Build();
 			this.build.setForm();
+			this.build.setCharacterClass(CharacterClassEnum.FIGHTER);
 			this.build.getInventory().putItemInBackPack(new Item (" short sword ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25));
 			System.out.println("number of things inm backpack after creation " +this.build.getInventory().getBackPack().size());
 			break;
