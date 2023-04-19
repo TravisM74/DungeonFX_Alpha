@@ -48,6 +48,15 @@ public class Inventory {
 		
 		return textOut;
 	}
+	public int calulateBaseArmourClass() {
+		int value = 0;
+		value += this.headGear.getArmourtype().getArmourClassBaseValue()/4;
+		value += this.armsGear.getArmourtype().getArmourClassBaseValue()/4;
+		value += this.legsGear.getArmourtype().getArmourClassBaseValue()/4;
+		value += this.torsoGear.getArmourtype().getArmourClassBaseValue();
+			
+		return value;
+	}
 	
 	public Item getHeadGear() {
 			

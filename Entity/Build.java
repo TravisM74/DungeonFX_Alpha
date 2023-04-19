@@ -35,6 +35,12 @@ public class Build {
 		this.hForm.getChildren().clear();
 		this.hForm.getChildren().add(this.characterClass.getDefaultEntityForm());
 	}
+	public CharacterClass getEntityClass() {
+		return this.characterClass;
+	}
+	public int getEntityLevel() {
+		return this.level;
+	}
 	public void setForm() {
 		this.form =hForm.getBody();
 	}

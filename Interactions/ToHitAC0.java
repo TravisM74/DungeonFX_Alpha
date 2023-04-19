@@ -2,11 +2,13 @@ package Interactions;
 
 import java.util.Random;
 
-import application.CharClass;
-import application.WorldEntity;
+import Classes.CharacterClass;
+import Classes.CharacterClassEnum;
+import Entity.Entity;
+
 
 public class ToHitAC0 {
-	private CharClass cClass;
+	private CharacterClassEnum cClass;
 	private int level;
 	private int armourClass;
 	private int thac0;
@@ -14,31 +16,33 @@ public class ToHitAC0 {
 	
 	private Random rand;
 	
-	public ToHitAC0(WorldEntity attacker, WorldEntity defender) {
-		this.cClass = attacker.getMob().getCClass().getCharClass();
-		this.level = attacker.getMob().getLevel();
+	public ToHitAC0(Entity attacker, Entity defender) {
+		this.cClass = attacker.getBuild().getEntityClass().getCharacterClassEnum();
+		this.level = attacker.getBuild().getEntityLevel();
+		this.armourClass = 7;
 		switch(this.cClass) {
 			case FIGHTER:
 				this.thac0 = 20-(level - 1);
+				this.armourClass = defender.getBuild().getEntityClass().getArmourClass();
 				break;
-			case ORC_FIGHTER:
+			case ORC:
 				this.thac0 = 20-(level - 1);
+				this.armourClass = defender.getBuild().getInventory().calulateBaseArmourClass();
+				
 				break;
 			case BARBARIAN:
-				this.thac0 = 20-(level - 1);;
+				this.thac0 = 20-(level - 1);
+				this.armourClass = defender.getBuild().getEntityClass().getArmourClass();
 				break;
 			case THEIF: 
 				this.thac0 = 20-((level/2)- 1);
+				this.armourClass = defender.getBuild().getEntityClass().getArmourClass();
 				break;
 		}
 		
 	}
 	
-		
-	
-	
 	public boolean tryTohit() {
-		
 		toHit = (thac0 - level)- armourClass;
 		//System.out.print("a " +toHit + ":(20) is needed to hit, ");
 		int roll = (rand.nextInt(20)+1);
