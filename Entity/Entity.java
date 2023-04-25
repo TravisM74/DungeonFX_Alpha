@@ -37,7 +37,7 @@ public class Entity {
 			this.desciption = " a happy trade Goblin ";
 			break;
 		case ITEM:
-		
+			
 			break;
 		case PORTAL:
 			this.desciption = " a portal leading somewhere.";
@@ -47,8 +47,8 @@ public class Entity {
 			this.build = new Build();
 			this.build.setForm();
 			this.build.setCharacterClass(CharacterClassEnum.FIGHTER);
-			this.build.getInventory().putItemInBackPack(new Item (" short sword ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25));
-			System.out.println("number of things inm backpack after creation " +this.build.getInventory().getBackPack().size());
+			this.build.getInventory().putItemInBackPack(new Item (" short sword ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25,true));
+			//System.out.println("number of things in backpack after creation " +this.build.getInventory().getBackPack().size());
 			break;
 			
 		
@@ -57,14 +57,18 @@ public class Entity {
 	public void setItem(Item item) {
 		this.item = item;
 	}
+	public void setX(int value) {
+		this.x = value;
+	}
+	public void setY(int value) {
+		this.y = value;
+	}
+	
 	public Item getItem() {
 		if (this.item.equals(null)) {
-			return new Item("a.nothing.ERROR",ItemTypeEnum.EMPTY,UsedEnum.POUCH, QualityEnum.COMMON,0,0,0);
+			return new Item("a.nothing.ERROR",ItemTypeEnum.EMPTY,UsedEnum.POUCH, QualityEnum.COMMON,0,0,0,false);
 		}
 		return this.item;
-	}
-	public String toString() {
-		return this.desciption;
 	}
 	public Build getBuild() {
 		return this.build;
@@ -76,14 +80,11 @@ public class Entity {
 	public int getY() {
 		return this.y;
 	}
-	public void setX(int value) {
-		this.x = value;
-	}
-	public void setY(int value) {
-		this.y = value;
-	}
-	public EntityEnum getEntityType() {
+	public EntityEnum getEntityEnum() {
 		return this.entity;
+	}
+	public String toString() {
+		return this.desciption;
 	}
 	
 	

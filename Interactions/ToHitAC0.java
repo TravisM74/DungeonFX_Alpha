@@ -45,6 +45,7 @@ public class ToHitAC0 {
 	public boolean tryTohit() {
 		toHit = (thac0 - level)- armourClass;
 		//System.out.print("a " +toHit + ":(20) is needed to hit, ");
+		rand = new Random();
 		int roll = (rand.nextInt(20)+1);
 		//System.out.print("rolls a "+ roll +" ");
 		if(toHit <= roll) {

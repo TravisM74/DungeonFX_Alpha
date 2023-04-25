@@ -6,73 +6,125 @@ import Classes.CharacterClass;
 import Classes.CharacterClassEnum;
 import Gfx.HumanoidForm;
 import Inventory.Inventory;
+import Status.Status;
+import Status.StatusEnum;
 import javafx.scene.Group;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class Build {
 	private String name;
 	private int level;
+	private int currentHP;
 	private int maxHitPoints;
 	private HumanoidForm hForm;
 	private Group form;
 	private Inventory inventory;
 	private CharacterClass characterClass;
 	private int experiancePoints;
+	private Status status;
+	private StatusEnum statusEnum;
 
 	public Build() {
 		this.name = "Bob";
+		//setCharacterClass(CharacterClassEnum.FIGHTER);
 		this.level = 1;
 		this.maxHitPoints = 10;
 		this.experiancePoints = 0;
 		this.inventory = new Inventory();
 		this.hForm = new HumanoidForm();
-			
+		this.status = new Status(StatusEnum.ADVENTURING);
+		
+		
+		
 	}
 	public void setHumanoidForm(Color hair,Color skin,Color eye,Color top,Color pants, Color shoe) {
 		this.hForm = new HumanoidForm(hair, skin, eye, top, pants,  shoe);
 	}
-	public void getClassDefaultForm() {
-		this.hForm.getChildren().clear();
-		this.hForm.getChildren().add(this.characterClass.getDefaultEntityForm());
-	}
-	public CharacterClass getEntityClass() {
-		return this.characterClass;
-	}
-	public int getEntityLevel() {
-		return this.level;
+	public void setStatus(StatusEnum statusEnum) {
+		this.statusEnum = statusEnum;
+		this.status = new Status(statusEnum);
 	}
 	public void setForm() {
-		this.form =hForm.getBody();
-	}
-	public Group getForm() {
-		return this.form;
+		this.form = hForm.getBody();
 	}
 	public void setCharacterClass(CharacterClassEnum cClass) {
 		this.characterClass = new CharacterClass(cClass);
-		calculateHitPoints();
+		calculateStartHitPoints();
 	}
 	public void setEntityName(String name) {
 		this.name = name;
-	}
-	public Inventory getInventory() {
-		return this.inventory;
-	}
-	public void addExperiancePoints(int value) {
-		this.experiancePoints += value;
-	}
-	public String toString() {
-		return this.name + "\t " + "level :" + level 
-				+"\n" +this.characterClass.toString()
-				+"\nExperiance\n " + this.experiancePoints +"\n";
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	private void calculateHitPoints() {
+	public Status getStatus() {
+		return this.status;
+	}
+	public StatusEnum getStatusEnum() {
+		return this.statusEnum;
+	}
+	public void getClassDefaultForm() {
+		this.hForm.getChildren().clear();
+		this.hForm.getChildren().add(this.characterClass.getDefaultEntityForm());
+	}
+	public int getEntityLevel() {
+		return this.level;
+	}
+	public Group getNewDisplayForm() {
+		return hForm.getBody();
+	}
+	public Group getForm() {
+		return this.form;
+	}
+	public Inventory getInventory() {
+		return this.inventory;
+	}
+	public CharacterClass getEntityClass() {
+		return this.characterClass;
+	}
+	public String getName() {
+		return this.name;
+	}
+	public int getCurrentHitPoints() {
+		return this.currentHP;
+	}
+	
+	public void addExperiancePoints(int value) {
+		this.experiancePoints += value;
+	}
+	
+	private void calculateStartHitPoints() {
 		Random rand = new Random();
 		this.maxHitPoints = this.characterClass.getHitDice();
 		this.maxHitPoints = rand.nextInt(this.maxHitPoints)+1;
+		this.currentHP = this.maxHitPoints;
+	}
+	public void takeDamage(int value) {
+		this.currentHP -= value;
+	}
+	public int causeDamage() {
+		int damage= 0;
+		damage = this.inventory.getMainWeaponAttackDamage();
+		return damage;
 	}
 
+	public VBox getCombatInfoPane() {
+		VBox combatInfo = new VBox();
+		combatInfo.getChildren().add(new Label("Hit Points :"+this.currentHP+"/"+this.maxHitPoints));
+		combatInfo.getChildren().add(new Label("Status :"+this.status));
+		
+		return combatInfo;
+	}
+	public String toString() {
+		return this.name + "\t " + "level :" + level 
+				+"\n" +this.characterClass.toString()
+				+"\nHit Points : "+this.currentHP+" / "+ this.maxHitPoints
+				+"\nExperiance\n " + this.experiancePoints +"\n"
+				+"Status : \n"+
+				this.status;
+		
+	}
 }

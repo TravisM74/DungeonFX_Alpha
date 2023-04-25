@@ -3,21 +3,28 @@ package Control;
 
 import Entity.Entity;
 import Entity.EntityEnum;
+import Interactions.Combat;
 import World.WorldLevel;
 import World.WorldTile;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class MoveButtons {
 	private BorderPane root;
 	private Entity player;
 	private WorldLevel world;
+	private Stage stage;
+	private Scene scene;
 	
-	public MoveButtons(Entity player, WorldLevel world) {
+	public MoveButtons(Entity player, WorldLevel world,Stage stage, Scene scene) {
 		this.player = player;
 		this.world = world;
+		this.stage = stage;
+		this.scene = scene;
 		root = new BorderPane();
 		VBox upPane = new VBox();
 		Button upButton = new Button(" UP ");
@@ -96,8 +103,9 @@ public class MoveButtons {
 	public void interactionCheck() {
 		WorldTile tile = world.getWorldTile(player.getX(), player.getY());
 		for(Entity entity:tile.getAllEntities()) {
-			if (entity.getEntityType().equals(EntityEnum.ENEMY)) {
+			if (entity.getEntityEnum().equals(EntityEnum.ENEMY)) {
 				System.out.println("Enemy found");
+				Combat combat = new Combat(this.player, this.world,this.stage, this.scene);
 				
 			}
 		}

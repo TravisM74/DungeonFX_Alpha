@@ -16,9 +16,10 @@ public class Item {
 	private int magicBonus;
 	private ItemTypeEnum itemTypeEnum;
 	private boolean visability;
+	private boolean lootable;
 	
 	//adding a generalItem
-	public Item(String description,ItemTypeEnum type,UsedEnum location, QualityEnum quality,int magicBonus, int weight, int valueCopperCoin) {
+	public Item(String description,ItemTypeEnum type,UsedEnum location, QualityEnum quality,int magicBonus, int weight, int valueCopperCoin,boolean lootable) {
 		this.description = description;
 		this.armourType = new ArmourType(ArmourTypeEnum.NONE);
 		this.weaponType = new WeaponType(WeaponTypeEnum.NONE);
@@ -31,10 +32,11 @@ public class Item {
 		this.weight = weight;
 		this.baseValueInCopper = valueCopperCoin;
 		this.visability = false;
+		this.lootable = lootable;
 		
 	}
 	//Adding a weapon item
-	public Item(String weaponDesc,ItemTypeEnum typeOfItem,WeaponTypeEnum weaponType, QualityEnum quality,UsedEnum location,int magicBonus, int weight, int valueCopperCoin) {
+	public Item(String weaponDesc,ItemTypeEnum typeOfItem,WeaponTypeEnum weaponType, QualityEnum quality,UsedEnum location,int magicBonus, int weight, int valueCopperCoin,boolean lootable) {
 		this.description = weaponDesc;
 		this.armourType = new ArmourType(ArmourTypeEnum.NONE);
 		this.weaponType = new WeaponType(weaponType);
@@ -47,10 +49,11 @@ public class Item {
 		this.weight = weight;
 		this.baseValueInCopper = valueCopperCoin;
 		this.visability = true;
+		this.lootable = lootable;
 	}
 	
 	//Adding Armour
-	public Item (String armourDesc,ItemTypeEnum type,ArmourTypeEnum armourType,	QualityEnum common,UsedEnum location,int magicBonus, int weight, int valueCopperCoin) {
+	public Item (String armourDesc,ItemTypeEnum type,ArmourTypeEnum armourType,	QualityEnum common,UsedEnum location,int magicBonus, int weight, int valueCopperCoin,boolean lootable) {
 		this.description = armourDesc;
 		this.type = new ItemType(type);
 		this.itemTypeEnum = type;
@@ -63,7 +66,12 @@ public class Item {
 		this.baseValueInCopper = valueCopperCoin;
 		this.weightCapacity = 0;
 		this.visability = false;
+		this.lootable = lootable;
 	}
+	public boolean isLootable() {
+		return this.lootable;
+	}
+	
 	public boolean getVisability() {
 		return this.visability;
 	}
@@ -85,9 +93,6 @@ public class Item {
 	public void setCarryCapacity(int value) {
 		this.weightCapacity = value;
 	}
-	public WeaponType getWeaponType() {
-		return this.weaponType;
-	}
 	public ItemTypeEnum getItemTypeEnum() {
 		return this.itemTypeEnum;
 	}
@@ -103,6 +108,9 @@ public class Item {
 		this.weight = weight;
 	}
 
+	public WeaponType getWeaponType() {
+		return this.weaponType;
+	}
 	public ItemType getType() {
 		return type;
 	}

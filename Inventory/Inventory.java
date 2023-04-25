@@ -1,6 +1,7 @@
 package Inventory;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import Items.ArmourTypeEnum;
 import Items.Item;
@@ -8,6 +9,8 @@ import Items.ItemTypeEnum;
 import Items.QualityEnum;
 import Items.UsedEnum;
 import Items.WeaponTypeEnum;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 public class Inventory {
 	
@@ -29,12 +32,12 @@ public class Inventory {
 		this.gold= 0;
 		this.silver = 0;
 		this.copper = 0;
-		this.headGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.HEAD, 0, 0, 0);
-		this.armsGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.ARMS, 0, 0, 0);
-		this.torsoGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.BODY, 0, 0, 0);
-		this.legsGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.LEGS, 0, 0, 0);
-		this.offHandGear = new Item("empty",ItemTypeEnum.EMPTY,UsedEnum.OFF_HAND, QualityEnum.COMMON,0, 0, 0);
-		this.mainHandGear = new Item("Fist",ItemTypeEnum.WEAPON,WeaponTypeEnum.HANDS, QualityEnum.COMMON,UsedEnum.MAIN_HAND,0, 0, 0);
+		this.headGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.HEAD, 0, 0, 0,false);
+		this.armsGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.ARMS, 0, 0, 0,false);
+		this.torsoGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.BODY, 0, 0, 0,false);
+		this.legsGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.LEGS, 0, 0, 0,false);
+		this.offHandGear = new Item("empty",ItemTypeEnum.EMPTY,UsedEnum.OFF_HAND, QualityEnum.COMMON,0, 0, 0,false);
+		this.mainHandGear = new Item("Fist",ItemTypeEnum.WEAPON,WeaponTypeEnum.HANDS, QualityEnum.COMMON,UsedEnum.MAIN_HAND,0, 0, 0,false);
 		
 	}
 	public String getEquipedGear() {
@@ -47,6 +50,16 @@ public class Inventory {
 				"Off-Hand \t:"+this.offHandGear.getDescription()+"\n";
 		
 		return textOut;
+	}
+	public void getLootables() {
+		
+	}
+	
+	public VBox getCombatGear() {
+		VBox combatGear = new VBox();
+		combatGear.getChildren().add(new Label("Main weapon:" +this.getMainHandGear()));
+		combatGear.getChildren().add(new Label("Off weapon :" +this.offHandGear));
+		return combatGear;
 	}
 	public int calulateBaseArmourClass() {
 		int value = 0;
@@ -158,4 +171,24 @@ public class Inventory {
 				
 				
 	}
+	public int getMainWeaponAttackDamage() {
+		int damage = 0;
+		Random rand = new Random();
+		damage = this.mainHandGear.getMagicDamageBonus();
+		damage = damage + this.mainHandGear.getQuality().getModifer();
+		damage += rand.nextInt(this.getMainHandGear().getWeaponType().getDamageDice())+1;
+		return damage;
+	}
+	public int getOffWeaponAttackDamage() {
+		int damage = 0;
+		if (this.offHandGear.getItemTypeEnum().equals(ItemTypeEnum.WEAPON)) {
+			Random rand = new Random();
+			damage += this.offHandGear.getMagicDamageBonus();
+			damage += this.offHandGear.getQuality().getModifer();
+			damage += rand.nextInt(this.getOffHandGear().getType().getDamageDiceValue())+1;
+			return damage;
+		}
+		return damage;
+	}
+	
 }

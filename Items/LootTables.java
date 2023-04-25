@@ -19,20 +19,20 @@ public class LootTables {
 		armour = new ArrayList<>();
 		
 		
-		Item starterRustySword = new Item (" forgotten ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25);
+		Item starterRustySword = new Item (" forgotten ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25,true);
 		weaponsCommon.add(starterRustySword);
-		Item starterRustyDagger = new Item (" long lost ",ItemTypeEnum.WEAPON,WeaponTypeEnum.DAGGER ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25);
+		Item starterRustyDagger = new Item (" long lost ",ItemTypeEnum.WEAPON,WeaponTypeEnum.DAGGER ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25,true);
 		weaponsCommon.add(starterRustyDagger);
-		Item starterRustyShortSword = new Item (" long lost ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25);
+		Item starterRustyShortSword = new Item (" long lost ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25,true);
 		weaponsCommon.add(starterRustyShortSword);
-		Item starterRustyAxe = new Item (" long lost ",ItemTypeEnum.WEAPON,WeaponTypeEnum.AXE ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25);
+		Item starterRustyAxe = new Item (" long lost ",ItemTypeEnum.WEAPON,WeaponTypeEnum.AXE ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25,true);
 		weaponsCommon.add(starterRustyAxe);
-		Item orcAxe = new Item (" orc forged ",ItemTypeEnum.WEAPON,WeaponTypeEnum.AXE ,QualityEnum.COMMON,UsedEnum.MAIN_HAND, 0, 1, 7);
+		Item orcAxe = new Item (" orc forged ",ItemTypeEnum.WEAPON,WeaponTypeEnum.AXE ,QualityEnum.COMMON,UsedEnum.MAIN_HAND, 0, 1, 7,true);
 		weaponsCommon.add(orcAxe);
-		Item axe = new Item (" forged ",ItemTypeEnum.WEAPON,WeaponTypeEnum.AXE ,QualityEnum.COMMON,UsedEnum.MAIN_HAND, 0, 1, 7);
+		Item axe = new Item (" forged ",ItemTypeEnum.WEAPON,WeaponTypeEnum.AXE ,QualityEnum.COMMON,UsedEnum.MAIN_HAND, 0, 1, 7,true);
 		weaponsCommon.add(axe);
 		
-		Item leatherhelm = new Item (" leather helm ",ItemTypeEnum.ARMOUR,ArmourTypeEnum.LEATHER,QualityEnum.COMMON,UsedEnum.HEAD, 0, 1, 85);
+		Item leatherhelm = new Item (" leather helm ",ItemTypeEnum.ARMOUR,ArmourTypeEnum.LEATHER,QualityEnum.COMMON,UsedEnum.HEAD, 0, 1, 85,true);
 		armour.add(leatherhelm);
 		
 	}

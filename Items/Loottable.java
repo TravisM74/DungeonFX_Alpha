@@ -16,12 +16,12 @@ public class Loottable {
 		armour = new ArrayList<>();
 		
 		
-		Item starterRustySword = new Item (" short sword ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25);
+		Item starterRustySword = new Item (" short sword ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25,true);
 		weaponsCommon.add(starterRustySword);
-		Item orcAxe = new Item (" orc forged ",ItemTypeEnum.WEAPON,WeaponTypeEnum.AXE ,QualityEnum.COMMON,UsedEnum.MAIN_HAND, 0, 1, 7);
+		Item orcAxe = new Item (" orc forged ",ItemTypeEnum.WEAPON,WeaponTypeEnum.AXE ,QualityEnum.COMMON,UsedEnum.MAIN_HAND, 0, 1, 7,true);
 		weaponsCommon.add(orcAxe);
 		
-		Item leatherhelm = new Item (" leather helm ",ItemTypeEnum.ARMOUR,ArmourTypeEnum.LEATHER,QualityEnum.COMMON,UsedEnum.HEAD, 0, 1, 85);
+		Item leatherhelm = new Item (" leather helm ",ItemTypeEnum.ARMOUR,ArmourTypeEnum.LEATHER,QualityEnum.COMMON,UsedEnum.HEAD, 0, 1, 85,true);
 		armour.add(leatherhelm);
 		
 	}

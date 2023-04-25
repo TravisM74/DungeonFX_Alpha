@@ -25,7 +25,7 @@ public class InteractionButtons {
 		this.mainScene = scene;
 			buttonContainer = new VBox();
 		buttonContainer.setAlignment(Pos.CENTER);
-		MoveButtons moveButtons = new MoveButtons(this.player,this.world);
+		MoveButtons moveButtons = new MoveButtons(this.player,this.world,this.primaryStage, this.mainScene);
 		buttonContainer.getChildren().add(moveButtons.getMoveButtons());
 		Button characterEquipment = new Button("Equip Gear");
 		characterEquipment.setOnAction(e -> switchToEquipment());

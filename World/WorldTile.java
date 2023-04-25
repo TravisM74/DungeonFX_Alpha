@@ -3,6 +3,7 @@ package World;
 import java.util.ArrayList;
 
 import Entity.Entity;
+import Entity.EntityEnum;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -29,6 +30,16 @@ public class WorldTile {
 	}
 	public Group getTileForm() {
 		return this.form;
+	}
+	public ArrayList<Entity> getEnemies(){
+		ArrayList<Entity> enemies = new ArrayList<>();
+		for (Entity entity:this.entity) {
+			if (entity.getEntityEnum().equals(EntityEnum.ENEMY)) {
+				enemies.add(entity);
+			}
+		}
+		
+		return enemies;
 	}
 
 }

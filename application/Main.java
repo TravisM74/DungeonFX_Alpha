@@ -1,5 +1,7 @@
 package application;
 
+import Classes.CharacterClass;
+import Classes.CharacterClassEnum;
 import Control.InteractionButtons;
 import Control.MoveButtons;
 import Display.PlayerInfo;
@@ -22,6 +24,7 @@ public class Main extends Application {
 	private Visuals visual;
 	private WorldLevel world;
 	private Entity player;
+	private Scene scene;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -32,10 +35,10 @@ public class Main extends Application {
 			visual = new Visuals(centerDisplay);
 			
 			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,1060,840);
+			scene = new Scene(root,1060,840);
 
 			VBox playerControls = new VBox();
-			InteractionButtons interactionButtons = new InteractionButtons(this.player, this.world,primaryStage, scene);
+			InteractionButtons interactionButtons = new InteractionButtons(this.player, this.world,primaryStage, this.scene);
 			playerControls.getChildren().add(interactionButtons.getButtonContainer());
 			root.setRight(playerControls);
 			
@@ -71,6 +74,7 @@ public class Main extends Application {
 		 orcEnemy.getBuild().setHumanoidForm(Color.RED,Color.GREEN,Color.RED,Color.BROWN,Color.BROWN, Color.GREEN);
 		 //set it to the Entity
 		 orcEnemy.getBuild().setForm();
+		 orcEnemy.getBuild().setCharacterClass(CharacterClassEnum.ORC);
 		 //Calculate its relative screen location
 		 orcEnemy.getBuild().getForm().setTranslateX(orcEnemy.getX()*20);
 		 orcEnemy.getBuild().getForm().setTranslateY(orcEnemy.getY()*20);
