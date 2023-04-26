@@ -3,6 +3,7 @@ package Interactions;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Display.PlayerInfo;
 import Entity.Entity;
 import Entity.EntityEnum;
 import Items.Item;
@@ -36,12 +37,14 @@ public class Combat {
 	private HBox frame;
 	private VBox textPane;
 	private Button fightButton;
+	private PlayerInfo playerInfo;
 	
-	public Combat(Entity attacker, WorldLevel world,Stage stage, Scene scene) {
+	public Combat(Entity attacker, WorldLevel world,Stage stage, Scene scene, PlayerInfo playerInfo) {
 		this.stage = stage;
 		this.scene = scene;
 		this.world = world;
 		this.attacker = attacker;
+		this.playerInfo = playerInfo;
 		this.enemies = new ArrayList<>();
 		this.enemies = this.world.getWorldTile(attacker.getX(), attacker.getY()).getEnemies(); 
 		this.defender = enemies.get(0);
@@ -64,6 +67,8 @@ public class Combat {
 	private void fleeButtonAction() {
 		//to Implement- attcker will be attacked for trying to flee from battle.
 		entityFleeing(this.attacker);
+		//To Implement-update main Stage Information
+		
 		this.stage.setScene(scene);
 	}
 	
@@ -112,6 +117,9 @@ public class Combat {
 			entityLootPlayer(this.defender);
 			//entity will relocate on map with taken loot
 			entityFleeing(this.defender);
+			this.attacker.getBuild().getForm().setRotate(90);
+			this.playerInfo.update();
+			this.stage.setScene(scene);
 		}
 		if (this.attacker.getBuild().getCurrentHitPoints() <= -9) {
 			this.attacker.getBuild().setStatus(StatusEnum.DEAD);
@@ -140,6 +148,7 @@ public class Combat {
 			this.defender=enemies.get(0);
 		} else {
 			//no more enemies to fight return to adventure screen.
+			this.playerInfo.update();
 			this.stage.setScene(scene);
 			//To Implement- or loot screen.
 		}
@@ -151,7 +160,6 @@ public class Combat {
 		for (Item item:this.defender.getBuild().getInventory().getAllLootables()) {
 			world.getWorldTile(this.attacker.getX(), this.attacker.getY()).createItem(item);
 		}
-		
 		//automatic coin collection
 		this.attacker.getBuild().getInventory().addGoldCoin(this.defender.getBuild().getInventory().getGold());
 		this.attacker.getBuild().getInventory().addSilverCoin(this.defender.getBuild().getInventory().getSilver());

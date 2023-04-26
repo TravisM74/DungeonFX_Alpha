@@ -20,17 +20,22 @@ public class MoveButtons {
 	private WorldLevel world;
 	private Stage stage;
 	private Scene scene;
+	private PlayerInfo playerInfo;
 	
 	
-	public MoveButtons(Entity player, WorldLevel world,Stage stage, Scene scene ) {
+	
+	public MoveButtons(Entity player, WorldLevel world,Stage stage, Scene scene, PlayerInfo playerInfo) {
 		this.player = player;
 		this.world = world;
 		this.stage = stage;
 		this.scene = scene;
+		this.playerInfo = playerInfo;
+		
 		root = new BorderPane();
 		VBox upPane = new VBox();
 		Button upButton = new Button(" UP ");
 		upButton.setOnAction(e -> { 
+			
 			if (player.getY() <= 0) {
 				System.out.println("edge of map Warrning");
 			} else {
@@ -38,6 +43,8 @@ public class MoveButtons {
 				player.setY(player.getY()-1);
 				System.out.println("up " + player.getY());
 				interactionCheck();
+				updatePlayerInfoPanel();
+				
 				
 			}
 		});
@@ -55,6 +62,8 @@ public class MoveButtons {
 				player.setY(player.getY()+1);
 				System.out.println("down " + player.getY());
 				interactionCheck();
+				updatePlayerInfoPanel();
+			
 				
 			}
 		});
@@ -72,6 +81,7 @@ public class MoveButtons {
 				player.setX(player.getX()-1);
 				System.out.println("left "  + player.getX());
 				interactionCheck();
+				updatePlayerInfoPanel();
 				
 			}
 		});
@@ -89,6 +99,7 @@ public class MoveButtons {
 				player.setX(player.getX()+1);
 				System.out.println("right " + player.getX());
 				interactionCheck();
+				updatePlayerInfoPanel();
 			}
 		});
 		rightPane.getChildren().add(rightButton);
@@ -102,13 +113,17 @@ public class MoveButtons {
 		root.setCenter(centerPane);
 		
 	}
+	public void updatePlayerInfoPanel() {
+		//this.mainRoot.setLeft(new PlayerInfo(player).getPlayerInfo());
+		this.playerInfo.update();
+	}
 
 	public void interactionCheck() {
 		WorldTile tile = world.getWorldTile(player.getX(), player.getY());
 		for(Entity entity:tile.getAllEntities()) {
 			if (entity.getEntityEnum().equals(EntityEnum.ENEMY)) {
 				System.out.println("Enemy found");
-				Combat combat = new Combat(this.player, this.world,this.stage, this.scene);
+				Combat combat = new Combat(this.player, this.world,this.stage, this.scene, this.playerInfo);
 				
 			}
 		}

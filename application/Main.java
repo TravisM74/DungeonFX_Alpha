@@ -4,8 +4,8 @@ import java.util.Random;
 
 import Classes.CharacterClass;
 import Classes.CharacterClassEnum;
-import Control.InteractionButtons;
 import Control.MoveButtons;
+import Display.InteractionButtons;
 import Display.PlayerInfo;
 import Entity.Entity;
 import Entity.EntityEnum;
@@ -45,7 +45,7 @@ public class Main extends Application {
 			root.setLeft(playerInformation);
 
 			VBox playerControls = new VBox();
-			InteractionButtons interactionButtons = new InteractionButtons(this.player, this.world,primaryStage, this.scene);
+			InteractionButtons interactionButtons = new InteractionButtons(this.player, this.world,primaryStage, this.scene,this.playerInfo);
 			playerControls.getChildren().add(interactionButtons.getButtonContainer());
 			root.setRight(playerControls);
 			

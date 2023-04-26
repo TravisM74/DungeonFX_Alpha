@@ -8,18 +8,36 @@ public class PlayerInfo {
 	private Entity player;
 	
 	private VBox playerInfo;
+	private Label name;
+	private Label inventory; 
+	private Label equipedGear;
 	
 	public PlayerInfo(Entity player) {
 		this.player = player;
 		playerInfo = new VBox();
-		
-		Label name = new Label();
+		update();
+		/*
+		this.name = new Label();
 		name.setText(player.getBuild().toString());
 		playerInfo.getChildren().add(name);
-		Label inventory = new Label(player.getBuild().getInventory().toString());
+		this.inventory = new Label(player.getBuild().getInventory().toString());
 		playerInfo.getChildren().add(inventory);
-		Label equipedGear = new Label(player.getBuild().getInventory().getEquipedGear());
+		this.equipedGear = new Label(player.getBuild().getInventory().getEquipedGear());
 		playerInfo.getChildren().add(equipedGear);
+		*/
+	}
+	
+	public void update() {
+		this.playerInfo.getChildren().clear();
+		this.name = new Label();
+		name.setText(player.getBuild().toString());
+		playerInfo.getChildren().add(name);
+		this.inventory = new Label(player.getBuild().getInventory().toString());
+		playerInfo.getChildren().add(inventory);
+		this.equipedGear = new Label(player.getBuild().getInventory().getEquipedGear());
+		playerInfo.getChildren().add(equipedGear);
+		
+		
 	}
 	
 	public VBox getPlayerInfo() {
