@@ -32,11 +32,11 @@ public class Inventory {
 		this.gold= 0;
 		this.silver = 0;
 		this.copper = 0;
-		this.headGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.HEAD, 0, 0, 0,false);
-		this.armsGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.ARMS, 0, 0, 0,false);
-		this.torsoGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.BODY, 0, 0, 0,false);
-		this.legsGear = new Item("Nothing.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.LEGS, 0, 0, 0,false);
-		this.offHandGear = new Item("empty",ItemTypeEnum.EMPTY,UsedEnum.OFF_HAND, QualityEnum.COMMON,0, 0, 0,false);
+		this.headGear = new Item("Nothing on head.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.HEAD, 0, 0, 0,false);
+		this.armsGear = new Item("Nothing on arms.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.ARMS, 0, 0, 0,false);
+		this.torsoGear = new Item("Nothing on torso.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.BODY, 0, 0, 0,false);
+		this.legsGear = new Item("Nothing on legs.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.LEGS, 0, 0, 0,false);
+		this.offHandGear = new Item("nothing in offhand.",ItemTypeEnum.EMPTY,UsedEnum.OFF_HAND, QualityEnum.COMMON,0, 0, 0,false);
 		this.mainHandGear = new Item("Fist",ItemTypeEnum.WEAPON,WeaponTypeEnum.HANDS, QualityEnum.COMMON,UsedEnum.MAIN_HAND,0, 0, 0,false);
 		
 	}
@@ -51,8 +51,66 @@ public class Inventory {
 		
 		return textOut;
 	}
-	public void getLootables() {
-		
+	public void addGoldCoin(int value) {
+		this.gold += value;
+	}
+	public void addSilverCoin(int value) {
+		this.silver += value;
+	}
+	public void addCopperCoin(int value) {
+		this.copper += value;
+	}
+	public int getAllGoldCoin() {
+		int gc = this.gold;
+		this.gold = 0;
+		return gc;
+	}
+	public int getAllSilverCoin() {
+		int sc = this.silver;
+		this.silver = 0;
+		return sc;
+	}
+	public int getAllCopperCoin() {
+		int cc = this.copper;
+		this.copper = 0;
+		return cc;
+	}
+	
+	public ArrayList<Item> getAllLootables() {
+		ArrayList<Item>lootables = new ArrayList<>();
+		if (this.headGear.isLootable()) {
+			lootables.add(this.headGear);
+			this.headGear =new Item("Nothing on head.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.HEAD, 0, 0, 0,false);
+		}
+		if (this.armsGear.isLootable()) {
+			lootables.add(this.armsGear);
+			this.armsGear =new Item("Nothing on arms.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.ARMS, 0, 0, 0,false);
+		}
+		if (this.torsoGear.isLootable()) {
+			lootables.add(this.torsoGear);
+			 this.torsoGear= new Item("Nothing on torso.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.BODY, 0, 0, 0,false);
+		}
+		if (this.legsGear.isLootable()) {
+			lootables.add(this.legsGear);
+			 this.legsGear= new Item("Nothing on torso.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.BODY, 0, 0, 0,false);
+		}
+		if (this.offHandGear.isLootable()) {
+			lootables.add(this.offHandGear);
+			this.offHandGear = new Item("nothing in offhand.",ItemTypeEnum.EMPTY,UsedEnum.OFF_HAND, QualityEnum.COMMON,0, 0, 0,false);
+		}
+		if (this.mainHandGear.isLootable()) {
+			lootables.add(this.mainHandGear);
+			this.mainHandGear =new Item("Fist",ItemTypeEnum.WEAPON,WeaponTypeEnum.HANDS, QualityEnum.COMMON,UsedEnum.MAIN_HAND,0, 0, 0,false);
+		}
+		for (Item item:this.backpack) {
+			if (item.isLootable()) {
+				lootables.add(item);
+			}
+		}
+		//all lootable items moved to backpack.
+		// if notlootable item in backpack will be lost !!!!
+		this.backpack = lootables;
+		return lootables;
 	}
 	
 	public VBox getCombatGear() {

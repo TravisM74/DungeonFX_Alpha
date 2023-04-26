@@ -8,7 +8,7 @@ import Gfx.HeldItem;
 public class LootTables {
 	private ArrayList<Item> loot;
 	private ArrayList<Item> weaponsCommon;
-	
+	private ArrayList<Item> empty;
 	private ArrayList<Item> armour;
 	
 
@@ -17,6 +17,16 @@ public class LootTables {
 		loot = new ArrayList<>();
 		weaponsCommon = new ArrayList<>();
 		armour = new ArrayList<>();
+		empty = new ArrayList<>();
+		
+		empty.add( new Item("Nothing on head.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.HEAD, 0, 0, 0,false));
+		empty.add( new Item("Nothing on arms.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.ARMS, 0, 0, 0,false));
+		empty.add( new Item("Nothing on torso.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.BODY, 0, 0, 0,false));
+		empty.add( new Item("Nothing on legs.",ItemTypeEnum.ARMOUR,ArmourTypeEnum.NONE,QualityEnum.COMMON,UsedEnum.LEGS, 0, 0, 0,false));
+		empty.add( new Item("nothing in offhand.",ItemTypeEnum.EMPTY,UsedEnum.OFF_HAND, QualityEnum.COMMON,0, 0, 0,false));
+		empty.add( new Item("Fist",ItemTypeEnum.WEAPON,WeaponTypeEnum.HANDS, QualityEnum.COMMON,UsedEnum.MAIN_HAND,0, 0, 0,false));
+		
+		
 		
 		
 		Item starterRustySword = new Item (" forgotten ",ItemTypeEnum.WEAPON,WeaponTypeEnum.SHORT_SWORD ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25,true);

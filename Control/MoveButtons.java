@@ -1,6 +1,7 @@
 package Control;
 
 
+import Display.PlayerInfo;
 import Entity.Entity;
 import Entity.EntityEnum;
 import Interactions.Combat;
@@ -20,7 +21,8 @@ public class MoveButtons {
 	private Stage stage;
 	private Scene scene;
 	
-	public MoveButtons(Entity player, WorldLevel world,Stage stage, Scene scene) {
+	
+	public MoveButtons(Entity player, WorldLevel world,Stage stage, Scene scene ) {
 		this.player = player;
 		this.world = world;
 		this.stage = stage;
@@ -100,6 +102,7 @@ public class MoveButtons {
 		root.setCenter(centerPane);
 		
 	}
+
 	public void interactionCheck() {
 		WorldTile tile = world.getWorldTile(player.getX(), player.getY());
 		for(Entity entity:tile.getAllEntities()) {

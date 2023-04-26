@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Entity.Entity;
 import Entity.EntityEnum;
+import Items.Item;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -31,6 +32,9 @@ public class WorldTile {
 	public Group getTileForm() {
 		return this.form;
 	}
+	public void removeEntity(Entity entity) {
+		this.entity.remove(entity);
+	}
 	public ArrayList<Entity> getEnemies(){
 		ArrayList<Entity> enemies = new ArrayList<>();
 		for (Entity entity:this.entity) {
@@ -40,6 +44,12 @@ public class WorldTile {
 		}
 		
 		return enemies;
+	}
+	
+	public void createItem(Item item) {
+		Entity newitem = new Entity(EntityEnum.ITEM);
+		newitem.setItem(item);
+		this.entity.add(newitem);
 	}
 
 }

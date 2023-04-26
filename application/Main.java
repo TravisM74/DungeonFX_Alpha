@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Random;
+
 import Classes.CharacterClass;
 import Classes.CharacterClassEnum;
 import Control.InteractionButtons;
@@ -36,16 +38,16 @@ public class Main extends Application {
 			
 			BorderPane root = new BorderPane();
 			scene = new Scene(root,1060,840);
-
-			VBox playerControls = new VBox();
-			InteractionButtons interactionButtons = new InteractionButtons(this.player, this.world,primaryStage, this.scene);
-			playerControls.getChildren().add(interactionButtons.getButtonContainer());
-			root.setRight(playerControls);
 			
 			VBox playerInformation = new VBox();
 			playerInfo = new PlayerInfo(this.player);
 			playerInformation.getChildren().add(playerInfo.getPlayerInfo());
 			root.setLeft(playerInformation);
+
+			VBox playerControls = new VBox();
+			InteractionButtons interactionButtons = new InteractionButtons(this.player, this.world,primaryStage, this.scene);
+			playerControls.getChildren().add(interactionButtons.getButtonContainer());
+			root.setRight(playerControls);
 			
 			visual.addVusualForm(player.getBuild().getForm());
 			createOrcEntity();
@@ -65,6 +67,8 @@ public class Main extends Application {
 	public void createOrcEntity() {
 		 Entity orcEnemy = new Entity(EntityEnum.ENEMY);
 		 orcEnemy.getBuild().setName("Orc");
+		 Random rand = new Random();
+		 orcEnemy.getBuild().getInventory().addCopperCoin(rand.nextInt(10));;
 		 //set his xy
 		 orcEnemy.setX(2);
 		 orcEnemy.setY(2);

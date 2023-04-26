@@ -42,8 +42,36 @@ public class ToHitAC0 {
 		
 	}
 	
-	public boolean tryTohit() {
+	public boolean tryToHit() {
 		toHit = (thac0 - level)- armourClass;
+		//System.out.print("a " +toHit + ":(20) is needed to hit, ");
+		rand = new Random();
+		int roll = (rand.nextInt(20)+1);
+		//System.out.print("rolls a "+ roll +" ");
+		if(toHit <= roll) {
+			//System.out.println(" and hit.");
+			return true;
+		} else {
+			//System.out.println(" and missed.");
+			return false;
+		}
+	}
+	public boolean tryToHitOffhand() {
+		toHit = (thac0 - level)- armourClass +5;
+		//System.out.print("a " +toHit + ":(20) is needed to hit, ");
+		rand = new Random();
+		int roll = (rand.nextInt(20)+1);
+		//System.out.print("rolls a "+ roll +" ");
+		if(toHit <= roll) {
+			//System.out.println(" and hit.");
+			return true;
+		} else {
+			//System.out.println(" and missed.");
+			return false;
+		}
+	}
+	public boolean tryToHitOffhandWithSkill() {
+		toHit = (thac0 - level)- armourClass +2;
 		//System.out.print("a " +toHit + ":(20) is needed to hit, ");
 		rand = new Random();
 		int roll = (rand.nextInt(20)+1);
