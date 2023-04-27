@@ -25,16 +25,17 @@ public class Build {
 	private int experiancePoints;
 	private Status status;
 	private StatusEnum statusEnum;
+	private boolean restrictMovement;
 
 	public Build() {
 		this.name = "Bob";
 		//setCharacterClass(CharacterClassEnum.FIGHTER);
 		this.level = 1;
-		this.maxHitPoints = 10;
 		this.experiancePoints = 0;
 		this.inventory = new Inventory();
 		this.hForm = new HumanoidForm();
 		this.status = new Status(StatusEnum.ADVENTURING);
+		this.restrictMovement = false;
 		
 		
 		
@@ -100,7 +101,15 @@ public class Build {
 		Random rand = new Random();
 		this.maxHitPoints = this.characterClass.getHitDice();
 		this.maxHitPoints = rand.nextInt(this.maxHitPoints)+1;
+		
 		this.currentHP = this.maxHitPoints;
+	}
+	public void gainHealth(int value) {
+		this.currentHP += value;
+		if (this.currentHP > this.maxHitPoints) {
+			System.out.println("full reached HP");
+			this.currentHP = this.maxHitPoints;
+		}
 	}
 	public void takeDamage(int value) {
 		this.currentHP -= value;

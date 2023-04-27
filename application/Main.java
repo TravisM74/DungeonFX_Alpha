@@ -9,6 +9,11 @@ import Display.InteractionButtons;
 import Display.PlayerInfo;
 import Entity.Entity;
 import Entity.EntityEnum;
+import Items.Item;
+import Items.ItemTypeEnum;
+import Items.QualityEnum;
+import Items.UsedEnum;
+import Items.WeaponTypeEnum;
 import Visuals.Visuals;
 import World.WorldLevel;
 import javafx.application.Application;
@@ -68,7 +73,8 @@ public class Main extends Application {
 		 Entity orcEnemy = new Entity(EntityEnum.ENEMY);
 		 orcEnemy.getBuild().setName("Orc");
 		 Random rand = new Random();
-		 orcEnemy.getBuild().getInventory().addCopperCoin(rand.nextInt(10));;
+		 orcEnemy.getBuild().getInventory().addCopperCoin(rand.nextInt(10));
+		 orcEnemy.getBuild().getInventory().setMainHandGear(new Item (" long lost ",ItemTypeEnum.WEAPON,WeaponTypeEnum.DAGGER ,QualityEnum.POOR,UsedEnum.MAIN_HAND, 0, 1, 25,true));
 		 //set his xy
 		 orcEnemy.setX(2);
 		 orcEnemy.setY(2);

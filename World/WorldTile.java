@@ -35,6 +35,15 @@ public class WorldTile {
 	public void removeEntity(Entity entity) {
 		this.entity.remove(entity);
 	}
+	public ArrayList<Entity> getItems(){
+		ArrayList<Entity>items = new ArrayList<>();
+		for (Entity entity:this.entity) {
+			if (entity.getEntityEnum().equals(EntityEnum.ITEM)) {
+				items.add(entity);
+			}
+		}
+		return items;
+	}
 	public ArrayList<Entity> getEnemies(){
 		ArrayList<Entity> enemies = new ArrayList<>();
 		for (Entity entity:this.entity) {

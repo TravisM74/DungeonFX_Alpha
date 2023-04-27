@@ -29,7 +29,7 @@ public class Combat {
 	private Stage stage;
 	private Scene scene;
 	private WorldLevel world;
-	private Entity attacker;
+	private Entity player;
 	private Entity defender;
 	private ArrayList<Entity> enemies;
 	private String combatText;
@@ -39,18 +39,18 @@ public class Combat {
 	private Button fightButton;
 	private PlayerInfo playerInfo;
 	
-	public Combat(Entity attacker, WorldLevel world,Stage stage, Scene scene, PlayerInfo playerInfo) {
+	public Combat(Entity player, WorldLevel world,Stage stage, Scene scene, PlayerInfo playerInfo) {
 		this.stage = stage;
 		this.scene = scene;
 		this.world = world;
-		this.attacker = attacker;
+		this.player = player;
 		this.playerInfo = playerInfo;
 		this.enemies = new ArrayList<>();
-		this.enemies = this.world.getWorldTile(attacker.getX(), attacker.getY()).getEnemies(); 
+		this.enemies = this.world.getWorldTile(this.player.getX(), this.player.getY()).getEnemies(); 
 		this.defender = enemies.get(0);
 		System.out.println("Eniemies detected in array :"+ enemies.size());
 		this.combatTextLabel = new Label();
-		fight(this.attacker, this.defender);
+		fight(this.player, this.defender);
 	}
 	
 	public void fight(Entity attacker , Entity defender) {
@@ -66,24 +66,28 @@ public class Combat {
 	}
 	private void fleeButtonAction() {
 		//to Implement- attcker will be attacked for trying to flee from battle.
-		entityFleeing(this.attacker);
+		entityFleeing(this.player);
 		//To Implement-update main Stage Information
+		 endFightScreen();
 		
+	}
+	
+	private void endFightScreen() {
 		this.stage.setScene(scene);
 	}
 	
 	private void fightButtonAction() {
-		ToHitAC0 thac0Attacker = new ToHitAC0(this.attacker,this.defender);
-		if(this.attacker.getBuild().getCurrentHitPoints() >0 ){
+		ToHitAC0 thac0Attacker = new ToHitAC0(this.player,this.defender);
+		if(this.player.getBuild().getCurrentHitPoints() >0 ){
 			if (this.defender.getBuild().getStatusEnum() == StatusEnum.DEAD) {
 				combatText = "No need to hit a corpse !";
 			} else {
-				combatText = this.attacker.getBuild().getName() + " and the " +this.defender.getBuild().getName() + " fight ";
+				combatText = this.player.getBuild().getName() + " and the " +this.defender.getBuild().getName() + " fight ";
 				if (thac0Attacker.tryToHit()) {
-					combatText += this.attacker.getBuild().getName()+" hits for ";
-					dealDamage(this.attacker,this.defender);
+					combatText += this.player.getBuild().getName()+" hits for ";
+					dealDamage(this.player,this.defender);
 				} else {
-					combatText += " but "+this.attacker.getBuild().getName()+ " misses. \n";
+					combatText += " but "+this.player.getBuild().getName()+ " misses. \n";
 				}
 			}
 			if (this.defender.getBuild().getStatusEnum() != StatusEnum.DEAD) {
@@ -91,12 +95,12 @@ public class Combat {
 			}
 				
 		}
-		ToHitAC0 defenderAttacks = new ToHitAC0(this.defender,this.attacker);
+		ToHitAC0 defenderAttacks = new ToHitAC0(this.defender,this.player);
 	
 		if (this.defender.getBuild().getStatusEnum() != StatusEnum.DEAD ) {
 			if (defenderAttacks.tryToHit()) {
 				combatText += " hits for ";
-				dealDamage(this.defender,this.attacker);
+				dealDamage(this.defender,this.player);
 			} else {
 				combatText += " misses. \n";
 			}
@@ -105,25 +109,26 @@ public class Combat {
 		testForDefeats();
 		
 		this.frame.getChildren().clear();
-		this.frame.getChildren().addAll(createCombatPane(this.attacker),createCombatPane(this.defender));
+		this.frame.getChildren().addAll(createCombatPane(this.player),createCombatPane(this.defender));
 		this.combatTextLabel.setText(combatText);
 	}
 	public void testForDefeats() {
 		//set attacker to unconscious if below 0
-		if (this.attacker.getBuild().getCurrentHitPoints() <= 0) {
-			this.attacker.getBuild().setStatus(StatusEnum.UNCONCEOUS);
-			combatText += this.attacker.getBuild().getName() +" falls to the ground " + this.attacker.getBuild().getStatus();
+		if (this.player.getBuild().getCurrentHitPoints() <= 0) {
+			this.player.getBuild().setStatus(StatusEnum.UNCONCEOUS);
+			combatText += this.player.getBuild().getName() +" falls to the ground " + this.player.getBuild().getStatus();
 			//entity will remove an item or coin
 			entityLootPlayer(this.defender);
 			//entity will relocate on map with taken loot
 			entityFleeing(this.defender);
-			this.attacker.getBuild().getForm().setRotate(90);
+			this.player.getBuild().getForm().setRotate(90);
 			this.playerInfo.update();
-			this.stage.setScene(scene);
+			endFightScreen() ;
+			
 		}
-		if (this.attacker.getBuild().getCurrentHitPoints() <= -9) {
-			this.attacker.getBuild().setStatus(StatusEnum.DEAD);
-			combatText += this.attacker.getBuild().getName() +" falls to the ground " + this.attacker.getBuild().getStatus();
+		if (this.player.getBuild().getCurrentHitPoints() <= -9) {
+			this.player.getBuild().setStatus(StatusEnum.DEAD);
+			combatText += this.player.getBuild().getName() +" falls to the ground " + this.player.getBuild().getStatus();
 			//To Implement- fatal damage end game.
 			gameOver();
 		}
@@ -158,12 +163,12 @@ public class Combat {
 	public void turnEntityToLoot(Entity entity) {
 		// turn the entity to loot bits and drop to floor.
 		for (Item item:this.defender.getBuild().getInventory().getAllLootables()) {
-			world.getWorldTile(this.attacker.getX(), this.attacker.getY()).createItem(item);
+			world.getWorldTile(this.player.getX(), this.player.getY()).createItem(item);
 		}
 		//automatic coin collection
-		this.attacker.getBuild().getInventory().addGoldCoin(this.defender.getBuild().getInventory().getGold());
-		this.attacker.getBuild().getInventory().addSilverCoin(this.defender.getBuild().getInventory().getSilver());
-		this.attacker.getBuild().getInventory().addCopperCoin(this.defender.getBuild().getInventory().getCopper());
+		this.player.getBuild().getInventory().addGoldCoin(this.defender.getBuild().getInventory().getGold());
+		this.player.getBuild().getInventory().addSilverCoin(this.defender.getBuild().getInventory().getSilver());
+		this.player.getBuild().getInventory().addCopperCoin(this.defender.getBuild().getInventory().getCopper());
 		//To Implement- provide xp.
 		//then remove entity.
 		world.getWorldTile(entity.getX(),entity.getY()).removeEntity(entity);
@@ -176,13 +181,13 @@ public class Combat {
 	
 	public void additionalEntitiesAttack() {
 		//other enemy entities if any attack here.
-		if(this.attacker.getBuild().getCurrentHitPoints() > 0) {
+		if(this.player.getBuild().getCurrentHitPoints() > 0) {
 			if (this.enemies.size() > 1) {
 				for (int i = 1 ; i < this.enemies.size(); i++) {
 					ToHitAC0 additionalAttack = new ToHitAC0(this.defender,this.enemies.get(i));
 					if (additionalAttack.tryToHit()) {
 						combatText += this.enemies.get(i).getBuild().getName() +" hits for ";
-						dealDamage(this.enemies.get(i),this.attacker);
+						dealDamage(this.enemies.get(i),this.player);
 					} else {
 						combatText += this.enemies.get(i).getBuild().getName() +" misses. \n";
 					}
@@ -290,15 +295,14 @@ public class Combat {
 				}
 			}
 			if (entity.getEntityEnum().equals(EntityEnum.ENEMY)) {
-				if((locX == this.attacker.getX()) &&(locY == this.attacker.getY())) {
+				if((locX == this.player.getX()) && (locY == this.player.getY())) {
 					validLoc = false;
 				} else {
 					validLoc = true;
 				}
 			}
 		}
-		entity.setX(locX);
-		entity.setY(locY);
+		this.world.moveEntity(entity, locX, locY);
 		entity.getBuild().getForm().setTranslateX(locX *20);
 		entity.getBuild().getForm().setTranslateY(locY *20);
 	}

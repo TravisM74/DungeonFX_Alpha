@@ -128,9 +128,9 @@ public class Item {
 	public String toString() {
 		switch(this.type.getEnumType()) {
 			case ARMOUR:
-				return this.quality+" " + this.type + this.armourType +this.description;
+				return this.type +""+this.quality+"" +this.description +this.armourType;
 			case WEAPON:
-				return  this.quality+" " + this.type + this.weaponType +this.description;
+				return this.type +""+ this.quality+"" +this.description +this.weaponType;
 			default:
 				return this.description;
 			}

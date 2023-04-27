@@ -28,6 +28,11 @@ public class WorldLevel {
 	public WorldTile getWorldTile(int x,int y) {
 		return level[x][y];
 	}
-	
+	public void moveEntity(Entity entity, int newX , int newY) {
+		level[entity.getX()][entity.getY()].removeEntity(entity);
+		level[newX][newY].addEntity(entity);
+		entity.setX(newX);
+		entity.setY(newY);
+	}
 
 }

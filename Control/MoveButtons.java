@@ -5,6 +5,7 @@ import Display.PlayerInfo;
 import Entity.Entity;
 import Entity.EntityEnum;
 import Interactions.Combat;
+import Status.StatusEnum;
 import World.WorldLevel;
 import World.WorldTile;
 import javafx.geometry.Pos;
@@ -33,7 +34,7 @@ public class MoveButtons {
 		
 		root = new BorderPane();
 		VBox upPane = new VBox();
-		Button upButton = new Button(" UP ");
+		Button upButton = new Button("  ▲  ");
 		upButton.setOnAction(e -> { 
 			
 			if (player.getY() <= 0) {
@@ -52,7 +53,7 @@ public class MoveButtons {
 		upPane.setAlignment(Pos.CENTER);
 		root.setTop(upPane);
 		
-		Button downButton = new Button(" Down ");
+		Button downButton = new Button("  ▼  ");
 		VBox downPane = new VBox();
 		downButton.setOnAction(e -> { 
 			if (player.getY() >= 40) {
@@ -63,7 +64,7 @@ public class MoveButtons {
 				System.out.println("down " + player.getY());
 				interactionCheck();
 				updatePlayerInfoPanel();
-			
+				
 				
 			}
 		});
@@ -71,7 +72,7 @@ public class MoveButtons {
 		downPane.setAlignment(Pos.CENTER);
 		root.setBottom(downPane);
 		
-		Button leftButton = new Button(" Left ");
+		Button leftButton = new Button(" ◄\n ");
 		VBox leftPane = new VBox();
 		leftButton.setOnAction(e -> { 
 			if (player.getX() <=0) {
@@ -89,7 +90,7 @@ public class MoveButtons {
 		leftPane.setAlignment(Pos.CENTER);
 		root.setLeft(leftPane);
 		
-		Button rightButton = new Button(" Right ");
+		Button rightButton = new Button(" ►\n ");
 		VBox rightPane = new VBox();
 		rightButton.setOnAction(e -> { 
 			if(player.getX() >= 40) {
@@ -100,15 +101,17 @@ public class MoveButtons {
 				System.out.println("right " + player.getX());
 				interactionCheck();
 				updatePlayerInfoPanel();
+				
 			}
 		});
 		rightPane.getChildren().add(rightButton);
 		rightPane.setAlignment(Pos.CENTER);
 		root.setRight(rightPane);
 		
-		Button sheetButton = new Button(" . ");
+		Button searchButton = new Button(" Search\n  Rest ");
+		searchButton.setOnAction(e -> searchAreaAndRestTurn());
 		VBox centerPane = new VBox();
-		centerPane.getChildren().add(sheetButton);
+		centerPane.getChildren().add(searchButton);
 		centerPane.setAlignment(Pos.CENTER);
 		root.setCenter(centerPane);
 		
@@ -116,6 +119,14 @@ public class MoveButtons {
 	public void updatePlayerInfoPanel() {
 		//this.mainRoot.setLeft(new PlayerInfo(player).getPlayerInfo());
 		this.playerInfo.update();
+	}
+	public void searchAreaAndRestTurn() {
+		if (this.player.getBuild().getCurrentHitPoints() >0 ) {
+			this.player.getBuild().getForm().setRotate(0);
+		}
+		interactionCheck();
+		recoverHealth();
+		updatePlayerInfoPanel();
 	}
 
 	public void interactionCheck() {
@@ -126,7 +137,16 @@ public class MoveButtons {
 				Combat combat = new Combat(this.player, this.world,this.stage, this.scene, this.playerInfo);
 				
 			}
+			if (entity.getEntityEnum().equals(EntityEnum.ITEM)) {
+				System.out.println("Item :"+entity.getItem());
+			}
 		}
+		
+	}
+	
+	public void recoverHealth() {
+		this.player.getBuild().gainHealth(this.player.getBuild().getStatus().gethealthRegen());
+		
 	}
 	public BorderPane getMoveButtons() {
 		return root;
