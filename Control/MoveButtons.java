@@ -37,8 +37,8 @@ public class MoveButtons {
 		Button upButton = new Button("  ▲  ");
 		upButton.setOnAction(e -> { 
 			
-			if (player.getY() <= 0) {
-				System.out.println("edge of map Warrning");
+			if ((player.getY() <= 0) || (player.getBuild().getIsEntityMoveRestricted())) {
+				System.out.println("move restricted");
 			} else {
 				player.getBuild().getForm().setTranslateY(player.getBuild().getForm().getTranslateY()-20);
 				player.setY(player.getY()-1);
@@ -56,7 +56,7 @@ public class MoveButtons {
 		Button downButton = new Button("  ▼  ");
 		VBox downPane = new VBox();
 		downButton.setOnAction(e -> { 
-			if (player.getY() >= 40) {
+			if ((player.getY() >= 40) || (player.getBuild().getIsEntityMoveRestricted())){
 				System.out.println("edge of map Warrning");
 			} else {
 				player.getBuild().getForm().setTranslateY(player.getBuild().getForm().getTranslateY()+20);
@@ -75,7 +75,7 @@ public class MoveButtons {
 		Button leftButton = new Button(" ◄\n ");
 		VBox leftPane = new VBox();
 		leftButton.setOnAction(e -> { 
-			if (player.getX() <=0) {
+			if ((player.getX() <=0)|| (player.getBuild().getIsEntityMoveRestricted())) {
 				System.out.println("edge of map Warrning");
 			} else {
 				player.getBuild().getForm().setTranslateX(player.getBuild().getForm().getTranslateX()-20);
@@ -93,7 +93,7 @@ public class MoveButtons {
 		Button rightButton = new Button(" ►\n ");
 		VBox rightPane = new VBox();
 		rightButton.setOnAction(e -> { 
-			if(player.getX() >= 40) {
+			if((player.getX() >= 40)|| (player.getBuild().getIsEntityMoveRestricted())) {
 				System.out.println("edge of map Warrning");
 			} else {
 				player.getBuild().getForm().setTranslateX(player.getBuild().getForm().getTranslateX()+20);
@@ -121,8 +121,12 @@ public class MoveButtons {
 		this.playerInfo.update();
 	}
 	public void searchAreaAndRestTurn() {
-		if (this.player.getBuild().getCurrentHitPoints() >0 ) {
+		if (this.player.getBuild().getCurrentHitPoints() > 0 ) {
+			this.player.getBuild().setMoveRestrictionsFalse();
 			this.player.getBuild().getForm().setRotate(0);
+		} else {
+			this.player.getBuild().getForm().setRotate(90);
+			this.player.getBuild().setMoveRestrictionsTrue();
 		}
 		interactionCheck();
 		recoverHealth();

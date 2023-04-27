@@ -122,6 +122,7 @@ public class Combat {
 			//entity will relocate on map with taken loot
 			entityFleeing(this.defender);
 			this.player.getBuild().getForm().setRotate(90);
+			this.player.getBuild().setMoveRestrictionsTrue();
 			this.playerInfo.update();
 			endFightScreen() ;
 			
@@ -138,6 +139,7 @@ public class Combat {
 				combatText += this.defender.getBuild().getName() +" falls to the ground ";
 				this.defender.getBuild().setStatus(StatusEnum.DEAD);
 				combatText +=   this.defender.getBuild().getStatus();
+				this.defender.getBuild().setMoveRestrictionsTrue();
 				this.defender.getBuild().getForm().setRotate(90);
 				//make entity to loot in world map
 				turnEntityToLoot(this.defender);

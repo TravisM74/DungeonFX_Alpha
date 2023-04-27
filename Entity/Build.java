@@ -47,6 +47,16 @@ public class Build {
 		this.statusEnum = statusEnum;
 		this.status = new Status(statusEnum);
 	}
+	public void setMoveRestrictionsTrue() {
+		this.restrictMovement = true;
+		
+	}
+	public void setMoveRestrictionsFalse() {
+		this.restrictMovement = false;
+	}
+	public boolean getIsEntityMoveRestricted() {
+		return this.restrictMovement;
+	}
 	public void setForm() {
 		this.form = hForm.getBody();
 	}
