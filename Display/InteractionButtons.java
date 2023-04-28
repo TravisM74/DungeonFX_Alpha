@@ -30,7 +30,7 @@ public class InteractionButtons {
 		this.playerInfo = playerInfo;
 		this.lootPane = new LootPane(player, world, playerInfo);
 	
-			buttonContainer = new VBox();
+		buttonContainer = new VBox();
 		buttonContainer.setAlignment(Pos.CENTER);
 		
 		MoveButtons moveButtons = new MoveButtons(this.player,this.world,this.primaryStage, this.mainScene, this.playerInfo, this.lootPane);

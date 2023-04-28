@@ -127,7 +127,7 @@ public class EquipGear {
 		mainHandGear.getValue().getWeaponType().getMainhandHeldItemForm().getItemForm().setTranslateX(this.player.getBuild().getHForm().getRightHandX());
 		mainHandGear.getValue().getWeaponType().getMainhandHeldItemForm().getItemForm().setTranslateY(this.player.getBuild().getHForm().getRightHandY());
 		this.player.getBuild().swapDisplayedMainhandWeapon(mainHandGear.getValue().getWeaponType().getMainhandHeldItemForm().getItemForm());
-		
+		//putting selections into gear spots
 		inventory.setHeadGear(headGear.getValue());
 		inventory.setArmsGear(armsGear.getValue()); 
 		inventory.setTorsoGear(torsoGear.getValue()); 

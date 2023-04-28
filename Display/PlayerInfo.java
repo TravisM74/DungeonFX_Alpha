@@ -16,15 +16,7 @@ public class PlayerInfo {
 		this.player = player;
 		playerInfo = new VBox();
 		update();
-		/*
-		this.name = new Label();
-		name.setText(player.getBuild().toString());
-		playerInfo.getChildren().add(name);
-		this.inventory = new Label(player.getBuild().getInventory().toString());
-		playerInfo.getChildren().add(inventory);
-		this.equipedGear = new Label(player.getBuild().getInventory().getEquipedGear());
-		playerInfo.getChildren().add(equipedGear);
-		*/
+		
 	}
 	
 	public void update() {
@@ -32,6 +24,7 @@ public class PlayerInfo {
 		this.name = new Label();
 		name.setText(player.getBuild().toString());
 		playerInfo.getChildren().add(name);
+		playerInfo.getChildren().add(this.player.getBuild().getStats().displayStatsBox());
 		this.inventory = new Label(player.getBuild().getInventory().toString());
 		playerInfo.getChildren().add(inventory);
 		this.equipedGear = new Label(player.getBuild().getInventory().getEquipedGear());

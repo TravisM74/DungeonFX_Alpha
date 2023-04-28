@@ -6,6 +6,7 @@ import Classes.CharacterClass;
 import Classes.CharacterClassEnum;
 import Gfx.HumanoidForm;
 import Inventory.Inventory;
+import Stats.Stats;
 import Status.Status;
 import Status.StatusEnum;
 import javafx.scene.Group;
@@ -15,6 +16,7 @@ import javafx.scene.paint.Color;
 
 public class Build {
 	private String name;
+	private Stats buildStats;
 	private int level;
 	private int currentHP;
 	private int maxHitPoints;
@@ -29,6 +31,7 @@ public class Build {
 
 	public Build() {
 		this.name = "Bob";
+		this.buildStats = new Stats();
 		//setCharacterClass(CharacterClassEnum.FIGHTER);
 		this.level = 1;
 		this.experiancePoints = 0;
@@ -59,7 +62,9 @@ public class Build {
 	public void addToForm(Group group) {
 		this.form.getChildren().add(group);
 	}
-
+	public Stats getStats() {
+		return this.buildStats;
+	}
 
 	public void setStatus(StatusEnum statusEnum) {
 		this.statusEnum = statusEnum;
