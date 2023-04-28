@@ -40,9 +40,27 @@ public class Build {
 		
 		
 	}
+	public void diplayMainhandWeapon() {
+		this.getInventory().getMainHandGear().getWeaponType().getMainhandHeldItemForm().getItemForm().setTranslateX(this.hForm.getRightHandX());
+		this.getInventory().getMainHandGear().getWeaponType().getMainhandHeldItemForm().getItemForm().setTranslateY(this.hForm.getRightHandY());
+		addToForm(this.getInventory().getMainHandGear().getWeaponType().getMainhandHeldItemForm().getItemForm());
+			
+	}
+	public void swapDisplayedMainhandWeapon(Group group) {
+		this.form.getChildren().remove(this.getInventory().getMainHandGear().getWeaponType().getMainhandHeldItemForm().getItemForm());
+		this.form.getChildren().add(group);
+		this.getInventory().getMainHandGear().getWeaponType().getMainhandHeldItemForm().getItemForm().setTranslateX(this.hForm.getRightHandX());
+		this.getInventory().getMainHandGear().getWeaponType().getMainhandHeldItemForm().getItemForm().setTranslateY(this.hForm.getRightHandY());
+		
+	}
 	public void setHumanoidForm(Color hair,Color skin,Color eye,Color top,Color pants, Color shoe) {
 		this.hForm = new HumanoidForm(hair, skin, eye, top, pants,  shoe);
 	}
+	public void addToForm(Group group) {
+		this.form.getChildren().add(group);
+	}
+
+
 	public void setStatus(StatusEnum statusEnum) {
 		this.statusEnum = statusEnum;
 		this.status = new Status(statusEnum);
@@ -50,6 +68,9 @@ public class Build {
 	public void setMoveRestrictionsTrue() {
 		this.restrictMovement = true;
 		
+	}
+	public HumanoidForm getHForm() {
+		return this.hForm;
 	}
 	public void setMoveRestrictionsFalse() {
 		this.restrictMovement = false;

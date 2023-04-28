@@ -46,7 +46,7 @@ public class InteractionButtons {
 		return this.buttonContainer;
 	}
 	private void switchToEquipment() {
-		EquipGear equipGear = new EquipGear(player,primaryStage,mainScene);
+		EquipGear equipGear = new EquipGear(player,primaryStage,mainScene,this.playerInfo);
 		Pane gearScene = new Pane();
 		gearScene.getChildren().add(equipGear.getEqiuipGearPage());
 		Scene sceneGear = new Scene(gearScene,1060,840);

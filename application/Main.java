@@ -53,8 +53,8 @@ public class Main extends Application {
 			InteractionButtons interactionButtons = new InteractionButtons(this.player, this.world,primaryStage, this.scene,this.playerInfo);
 			playerControls.getChildren().add(interactionButtons.getButtonContainer());
 			root.setRight(playerControls);
-			
 			visual.addVusualForm(player.getBuild().getForm());
+			player.getBuild().diplayMainhandWeapon();
 			createOrcEntity();
 			
 			root.setCenter(centerDisplay);
@@ -90,6 +90,8 @@ public class Main extends Application {
 		 orcEnemy.getBuild().getForm().setTranslateY(orcEnemy.getY()*20);
 		 //add entity's Visual to the Pane
 		 visual.addVusualForm(orcEnemy.getBuild().getForm());
+		 orcEnemy.getBuild().diplayMainhandWeapon();
+		 
 	}
 }
 

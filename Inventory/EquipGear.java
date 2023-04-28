@@ -1,5 +1,6 @@
 package Inventory;
 
+import Display.PlayerInfo;
 import Entity.Entity;
 import Items.Item;
 import Items.ItemTypeEnum;
@@ -26,12 +27,13 @@ public class EquipGear {
 	private VBox bodyBoxes;
 	private Stage stage;
 	private Scene scene;
+	private PlayerInfo playerInfo;
 	
-	public EquipGear(Entity  player, Stage stage,Scene scene) {
+	public EquipGear(Entity  player, Stage stage,Scene scene, PlayerInfo playerInfo) {
 		this.player = player;
 		this.stage = stage;
 		this.scene = scene;
-		
+		this.playerInfo = playerInfo;
 		this.inventory = this.player.getBuild().getInventory();
 		
 		this.bodyBoxes = new VBox(20);
@@ -121,6 +123,10 @@ public class EquipGear {
 		return this.bodyBoxes;
 	}
 	public void setGearButton_Click() {
+		//changing weapon visuals
+		mainHandGear.getValue().getWeaponType().getMainhandHeldItemForm().getItemForm().setTranslateX(this.player.getBuild().getHForm().getRightHandX());
+		mainHandGear.getValue().getWeaponType().getMainhandHeldItemForm().getItemForm().setTranslateY(this.player.getBuild().getHForm().getRightHandY());
+		this.player.getBuild().swapDisplayedMainhandWeapon(mainHandGear.getValue().getWeaponType().getMainhandHeldItemForm().getItemForm());
 		
 		inventory.setHeadGear(headGear.getValue());
 		inventory.setArmsGear(armsGear.getValue()); 
@@ -128,6 +134,7 @@ public class EquipGear {
 		inventory.setOffHandGear(offHandGear.getValue());
 		inventory.setMainHandGear(mainHandGear.getValue());
 		inventory.setLegsGear(legsGear.getValue());
+		playerInfo.update();
 		stage.setScene(scene);
 					
 		
