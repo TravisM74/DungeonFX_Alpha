@@ -97,7 +97,7 @@ public class Item {
 		return this.itemTypeEnum;
 	}
 	public String getDescription() {
-		return this.description;
+		return this.weaponType + this.description;
 	}
 	
 	public int getWeight() {
@@ -128,9 +128,9 @@ public class Item {
 	public String toString() {
 		switch(this.type.getEnumType()) {
 			case ARMOUR:
-				return this.type +""+this.quality+"" +this.description +this.armourType;
+				return ""+this.quality+"" +this.description +this.armourType;
 			case WEAPON:
-				return this.type +""+ this.quality+"" +this.description +this.weaponType;
+				return ""+ this.quality+"" +this.description +this.weaponType;
 			default:
 				return this.description;
 			}

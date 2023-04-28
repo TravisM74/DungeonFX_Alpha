@@ -20,7 +20,7 @@ public class InteractionButtons {
 	private Stage primaryStage;
 	private Scene mainScene;
 	private PlayerInfo playerInfo;
-	
+	private LootPane lootPane;
 	
 	public InteractionButtons(Entity player ,WorldLevel world, Stage primaryStage,Scene scene,PlayerInfo playerInfo ) {
 		this.player = player;
@@ -28,14 +28,18 @@ public class InteractionButtons {
 		this.primaryStage = primaryStage;
 		this.mainScene = scene;
 		this.playerInfo = playerInfo;
+		this.lootPane = new LootPane(player, world, playerInfo);
 	
 			buttonContainer = new VBox();
 		buttonContainer.setAlignment(Pos.CENTER);
-		MoveButtons moveButtons = new MoveButtons(this.player,this.world,this.primaryStage, this.mainScene, this.playerInfo);
+		
+		MoveButtons moveButtons = new MoveButtons(this.player,this.world,this.primaryStage, this.mainScene, this.playerInfo, this.lootPane);
 		buttonContainer.getChildren().add(moveButtons.getMoveButtons());
 		Button characterEquipment = new Button("Equip Gear");
 		characterEquipment.setOnAction(e -> switchToEquipment());
 		buttonContainer.getChildren().add(characterEquipment);
+		
+		buttonContainer.getChildren().add(lootPane.displayLootPane());
 	}
 
 	public VBox getButtonContainer() {

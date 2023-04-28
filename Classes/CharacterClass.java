@@ -36,8 +36,8 @@ public class CharacterClass {
 		
 		switch (charClass) {
 		case FIGHTER:
-			//test Override value set to 1 from 10
-			this.hitDice = 1;
+		
+			this.hitDice = 10;
 			
 			this.className = "Fighter";
 			this.hairColor = Color.BROWN;

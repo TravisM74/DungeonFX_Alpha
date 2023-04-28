@@ -1,6 +1,7 @@
 package Control;
 
 
+import Display.LootPane;
 import Display.PlayerInfo;
 import Entity.Entity;
 import Entity.EntityEnum;
@@ -22,15 +23,17 @@ public class MoveButtons {
 	private Stage stage;
 	private Scene scene;
 	private PlayerInfo playerInfo;
+	private LootPane lootPane;
 	
 	
 	
-	public MoveButtons(Entity player, WorldLevel world,Stage stage, Scene scene, PlayerInfo playerInfo) {
+	public MoveButtons(Entity player, WorldLevel world,Stage stage, Scene scene, PlayerInfo playerInfo, LootPane lootPane) {
 		this.player = player;
 		this.world = world;
 		this.stage = stage;
 		this.scene = scene;
 		this.playerInfo = playerInfo;
+		this.lootPane = lootPane;
 		
 		root = new BorderPane();
 		VBox upPane = new VBox();
@@ -57,7 +60,7 @@ public class MoveButtons {
 		VBox downPane = new VBox();
 		downButton.setOnAction(e -> { 
 			if ((player.getY() >= 40) || (player.getBuild().getIsEntityMoveRestricted())){
-				System.out.println("edge of map Warrning");
+				System.out.println("move restricted");
 			} else {
 				player.getBuild().getForm().setTranslateY(player.getBuild().getForm().getTranslateY()+20);
 				player.setY(player.getY()+1);
@@ -76,7 +79,7 @@ public class MoveButtons {
 		VBox leftPane = new VBox();
 		leftButton.setOnAction(e -> { 
 			if ((player.getX() <=0)|| (player.getBuild().getIsEntityMoveRestricted())) {
-				System.out.println("edge of map Warrning");
+				System.out.println("move restricted");
 			} else {
 				player.getBuild().getForm().setTranslateX(player.getBuild().getForm().getTranslateX()-20);
 				player.setX(player.getX()-1);
@@ -94,7 +97,7 @@ public class MoveButtons {
 		VBox rightPane = new VBox();
 		rightButton.setOnAction(e -> { 
 			if((player.getX() >= 40)|| (player.getBuild().getIsEntityMoveRestricted())) {
-				System.out.println("edge of map Warrning");
+				System.out.println("move restricted");
 			} else {
 				player.getBuild().getForm().setTranslateX(player.getBuild().getForm().getTranslateX()+20);
 				player.setX(player.getX()+1);
@@ -117,10 +120,10 @@ public class MoveButtons {
 		
 	}
 	public void updatePlayerInfoPanel() {
-		//this.mainRoot.setLeft(new PlayerInfo(player).getPlayerInfo());
 		this.playerInfo.update();
 	}
 	public void searchAreaAndRestTurn() {
+		recoverHealth();
 		if (this.player.getBuild().getCurrentHitPoints() > 0 ) {
 			this.player.getBuild().setMoveRestrictionsFalse();
 			this.player.getBuild().getForm().setRotate(0);
@@ -129,8 +132,8 @@ public class MoveButtons {
 			this.player.getBuild().setMoveRestrictionsTrue();
 		}
 		interactionCheck();
-		recoverHealth();
 		updatePlayerInfoPanel();
+		this.lootPane.update();
 	}
 
 	public void interactionCheck() {
