@@ -18,7 +18,6 @@ public class PlayerInfo {
 		update();
 		
 	}
-	
 	public void update() {
 		this.playerInfo.getChildren().clear();
 		this.name = new Label();
@@ -29,8 +28,7 @@ public class PlayerInfo {
 		playerInfo.getChildren().add(inventory);
 		this.equipedGear = new Label(player.getBuild().getInventory().getEquipedGear());
 		playerInfo.getChildren().add(equipedGear);
-		
-		
+			
 	}
 	
 	public VBox getPlayerInfo() {
